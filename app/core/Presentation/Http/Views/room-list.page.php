@@ -13,7 +13,7 @@ use Primitives\Models\User;
         <div class="col-6">
             <h1 class="list-title">List of All Rooms</h1>
         </div>
-        <?php if ($user->role == RoleName::Administrator): ?>
+        <?php if ($user->getRole() == RoleName::Administrator): ?>
             <div class="col-6">
                 <a type="button" class="button info-button float-end" href="/admin/add-room">+ Add New Room</a>
             </div>
@@ -34,24 +34,24 @@ use Primitives\Models\User;
         <tbody>
         <?php foreach ($rooms as $room): ?>
             <tr>
-                <td><?= $room->code ?></td>
-                <td><?= $room->name ?></td>
-                <td><?= $room->capacity ?></td>
-                <td><?= $room->floor ?></td>
-                <td><?= $room->side ?></td>
+                <td><?= $room->getCode() ?></td>
+                <td><?= $room->getName() ?></td>
+                <td><?= $room->getCapacity() ?></td>
+                <td><?= $room->getFloor() ?></td>
+                <td><?= $room->getSide() ?></td>
                 <td class="text-center d-flex justify-content-center" style="gap: 0.5rem">
-                    <?php if ($user->role == RoleName::Student): ?>
-                        <a href="/student/room?id=<?= $room->id ?>" class="button primary-button">Detail</a>
+                    <?php if ($user->getRole() == RoleName::Student): ?>
+                        <a href="/student/room?id=<?= $room->getId() ?>" class="button primary-button">Detail</a>
                     <?php else: ?>
                         <button
                                 type="button" class="button danger-button"
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteRoomModal"
-                                data-bs-room-id="<?= $room->id ?>"
+                                data-bs-room-id="<?= $room->getId() ?>"
                         >
                             Delete
                         </button>
-                        <a href="/admin/room?id=<?= $room->id ?>" class="button primary-button">Edit</a>
+                        <a href="/admin/room?id=<?= $room->getId() ?>" class="button primary-button">Edit</a>
                     <?php endif; ?>
                 </td>
             </tr>

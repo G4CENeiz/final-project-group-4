@@ -24,7 +24,7 @@ use Primitives\Models\User;
             <th scope="col">Description</th>
             <th scope="col">Starts At</th>
             <th scope="col">Ends At</th>
-            <?php if ($user->role !== RoleName::Student): ?>
+            <?php if ($user->getRole() !== RoleName::Student): ?>
                 <th scope="col">Status</th>
             <?php endif; ?>
             <th scope="col" class="text-center">Action</th>
@@ -34,13 +34,13 @@ use Primitives\Models\User;
         <?php foreach ($events as $event): ?>
 
             <tr>
-                <td class="text-truncate" style="max-width: 10rem"><?= $event->title ?></td>
-                <td class="text-truncate" style="max-width: 12rem"><?= $event->description ?></td>
-                <td><?= $event->startsAt->format('Y-m-d') ?></td>
-                <td><?= $event->endsAt->format('Y-m-d') ?></td>
-                <?php if ($user->role !== RoleName::Student): ?>
+                <td class="text-truncate" style="max-width: 10rem"><?= $event->getTitle() ?></td>
+                <td class="text-truncate" style="max-width: 12rem"><?= $event->getDescription() ?></td>
+                <td><?= $event->getStartsAt()->format('Y-m-d') ?></td>
+                <td><?= $event->getEndsAt()->format('Y-m-d') ?></td>
+                <?php if ($user->getRole() !== RoleName::Student): ?>
                     <?php
-                    $status = $event->getStatus($user->id);
+                    $status = $event->getStatus($user->getId());
                     $badgeColor = match ($status) {
                         ApprovalStatus::Approved => "badge-success",
                         ApprovalStatus::Rejected => "badge-danger",
@@ -52,7 +52,7 @@ use Primitives\Models\User;
                 <?php endif; ?>
                 <td class="text-center d-flex justify-content-center">
                     <a
-                            href="<?= View::route('event') ?>?id=<?= $event->id ?>"
+                            href="<?= View::route('event') ?>?id=<?= $event->getId() ?>"
                             class="button button-edit"
                     >
                         Detail

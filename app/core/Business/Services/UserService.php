@@ -61,7 +61,7 @@ class UserService
     public function updateUser(array $raw_user): User
     {
         $user = $this->getUserById($raw_user['id']);
-        $avatar = Storage::updateUploadedImage('avatar', $user->avatar, 'user');
+        $avatar = Storage::updateUploadedImage('avatar', $user->getAvatar(), 'user');
         $user->updateWith([
             'registration_number' => $raw_user['registration_number'],
             'fullname' => $raw_user['fullname'],
@@ -78,7 +78,7 @@ class UserService
     public function deleteUser(int $id): User
     {
         $user = $this->userRepository->getById($id);
-        Storage::removeStoredImage("user/$user->avatar");
+        Storage::removeStoredImage("user/{$user->getAvatar()}");
         return $this->userRepository->delete($id);
     }
 

@@ -14,8 +14,8 @@ use Primitives\Models\User;
 ?>
 <div class="container mx-auto form-container">
     <div class="cover-image-container">
-        <img class="cover-image" src="/uploaded_images/room/<?= $event->room->image ?>"
-             alt="<?= $event->room->name ?>"/>
+        <img class="cover-image" src="/uploaded_images/room/<?= $event->getRoom()->getImage() ?>"
+             alt="<?= $event->getRoom()->getName() ?>"/>
         <div class="white-shadow"></div>
         <a class="back-button" href="<?= View::route('schedule') ?>">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,49 +28,49 @@ use Primitives\Models\User;
             </svg>
         </a>
         <div class="room-detail">
-            <h1><?= $event->room->code ?>: <?= $event->room->name ?></h1>
+            <h1><?= $event->getRoom()->getCode() ?>: <?= $event->getRoom()->getName() ?></h1>
             <div class="d-flex text-capitalize" style="gap: 1rem">
-                <p><strong>Capacity:</strong> <?= $event->room->capacity ?></p>
-                <p><strong>Floor:</strong> <?= $event->room->floor ?></p>
-                <p><strong>Side:</strong> <?= $event->room->side ?></p>
+                <p><strong>Capacity:</strong> <?= $event->getRoom()->getCapacity() ?></p>
+                <p><strong>Floor:</strong> <?= $event->getRoom()->getFloor() ?></p>
+                <p><strong>Side:</strong> <?= $event->getRoom()->getSide() ?></p>
             </div>
         </div>
     </div>
     <form class="bordered-container" method="post"
-          action="/event/<?= $user->role == RoleName::Administrator ? 'assign-approver' : 'approve' ?>?id=<?= $event->id ?>">
+          action="/event/<?= $user->getRole() == RoleName::Administrator ? 'assign-approver' : 'approve' ?>?id=<?= $event->getId() ?>">
         <h1 class="form-title">Event Details</h1>
         <div class="input-container">
             <div class="event-detail-item">
                 <span class="event-detail-label">Full Name</span>
-                <span><?= $event->pic->fullname ?></span>
+                <span><?= $event->getPic()->getFullname() ?></span>
             </div>
             <div class="event-detail-item">
                 <span class="event-detail-label">Event Name</span>
-                <span><?= $event->title ?></span>
+                <span><?= $event->getTitle() ?></span>
             </div>
             <div class="event-detail-item">
                 <span class="event-detail-label">Starts At</span>
-                <span><?= $event->startsAt->format('D, d M Y H:i:s') ?></span>
+                <span><?= $event->getStartsAt()->format('D, d M Y H:i:s') ?></span>
             </div>
             <div class="event-detail-item">
                 <span class="event-detail-label">Ends At</span>
-                <span><?= $event->endsAt->format('D, d M Y H:i:s') ?></span>
+                <span><?= $event->getEndsAt()->format('D, d M Y H:i:s') ?></span>
             </div>
             <div class="event-detail-item event-description">
                 <span class="event-detail-label">Event Details</span>
                 <p>
-                    <?= $event->description ?>
+                    <?= $event->getDescription() ?>
                 </p>
             </div>
             <!-- Dynamic Form to add approver using a dropdown select -->
             <div class="event-approver">
                 <label for="select-approver" class="event-detail-label">Approver</label>
-                <?php if ($user->role == RoleName::Administrator): ?>
-                    <?php if (count($event->approvers) <= 0): ?>
+                <?php if ($user->getRole() == RoleName::Administrator): ?>
+                    <?php if (count($event->getApprovers()) <= 0): ?>
                         <div class="event-approver-input">
                             <select name="approver" id="select-approver" class="input-text">
                                 <?php foreach ($approvers as $approver): ?>
-                                    <option value="<?= $approver->id ?>"><?= $approver->fullname ?></option>
+                                    <option value="<?= $approver->getId() ?>"><?= $approver->getFullname() ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <button class="button primary-button" id="event-approver-button" type="button"
@@ -82,11 +82,11 @@ use Primitives\Models\User;
                     <?php endif; ?>
                 <?php endif; ?>
                 <div class="approver-list" id="approver-list">
-                    <?php if (count($event->approvers) > 0): ?>
-                        <?php foreach ($event->approvers as $approver): ?>
+                    <?php if (count($event->getApprovers()) > 0): ?>
+                        <?php foreach ($event->getApprovers() as $approver): ?>
                             <?php
                             $badgeColor = "";
-                            switch ($approver->status) {
+                            switch ($approver->getStatus()) {
                                 case ApprovalStatus::Approved:
                                     $badgeColor = "badge-success";
                                     break;
@@ -100,11 +100,11 @@ use Primitives\Models\User;
                             ?>
                             <div class="approver-item-wrapper">
                                 <div class="approver-item">
-                                    <span><?= $approver->user->fullname ?></span>
+                                    <span><?= $approver->getUser()->getFullname() ?></span>
                                     <span class="badge <?= $badgeColor ?>"
-                                          style="font-size: 0.95rem"><?= $approver->status->value ?></span>
+                                          style="font-size: 0.95rem"><?= $approver->getStatus()->value ?></span>
                                 </div>
-                                <p><?= $approver->reason ?></p>
+                                <p><?= $approver->getReason() ?></p>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -118,7 +118,7 @@ use Primitives\Models\User;
                             type="button" class="col button danger-button"
                             data-bs-toggle="modal"
                             data-bs-target="#rejectRequestModal"
-                            data-bs-event-id="<?= $event->id ?>"
+                            data-bs-event-id="<?= $event->getId() ?>"
                     >
                         Reject
                     </button>

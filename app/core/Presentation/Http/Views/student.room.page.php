@@ -9,7 +9,7 @@ use Primitives\Models\Room;
 <div class="container mx-auto form-container">
     <div class="cover-image-container" style="height: 28rem">
         <img
-                class="cover-image" src="/uploaded_images/room/<?= $room->image ?>" alt="<?= $room->name ?>"
+                class="cover-image" src="/uploaded_images/room/<?= $room->getImage() ?>" alt="<?= $room->getName() ?>"
                 style="top: 0"
         />
         <div class="white-shadow"></div>
@@ -26,14 +26,14 @@ use Primitives\Models\Room;
         </a>
         <div class="room-detail-container">
             <div class="room-detail">
-                <h1><?= $room->code ?>: <?= $room->name ?></h1>
+                <h1><?= $room->getCode() ?>: <?= $room->getName() ?></h1>
                 <div class="d-flex text-capitalize" style="gap: 1rem">
-                    <p><strong>Capacity:</strong> <?= $room->capacity ?></p>
-                    <p><strong>Floor:</strong> <?= $room->floor ?></p>
-                    <p><strong>Side:</strong> <?= $room->side ?></p>
+                    <p><strong>Capacity:</strong> <?= $room->getCapacity() ?></p>
+                    <p><strong>Floor:</strong> <?= $room->getFloor() ?></p>
+                    <p><strong>Side:</strong> <?= $room->getSide() ?></p>
                 </div>
             </div>
-            <a href="/student/room/reserve?id=<?= $room->id ?>" class="primary-button">Book</a>
+            <a href="/student/room/reserve?id=<?= $room->getId() ?>" class="button primary-button">Book</a>
         </div>
     </div>
     <div class="bordered-container">
@@ -54,10 +54,10 @@ use Primitives\Models\Room;
             <?php else: ?>
                 <?php foreach ($events as $event): ?>
                     <tr>
-                        <td><?= $event->title ?></td>
-                        <td><?= $event->description ?></td>
-                        <td><?= $event->startsAt->format('d-m-Y H:i:s') ?></td>
-                        <td><?= $event->endsAt->format('d-m-Y H:i:s') ?></td>
+                        <td><?= $event->getTitle() ?></td>
+                        <td><?= $event->getDescription() ?></td>
+                        <td><?= $event->getStartsAt()->format('d-m-Y H:i:s') ?></td>
+                        <td><?= $event->getEndsAt()->format('d-m-Y H:i:s') ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

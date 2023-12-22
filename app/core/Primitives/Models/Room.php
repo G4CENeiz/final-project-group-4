@@ -5,13 +5,13 @@ namespace Primitives\Models;
 class Room
 {
     public function __construct(
-        public ?int   $id,
-        public string $code,
-        public string $name,
-        public int    $floor,
-        public int    $capacity,
-        public string $side,
-        public string $image,
+        private ?int   $id,
+        private string $code,
+        private string $name,
+        private int    $floor,
+        private int    $capacity,
+        private string $side,
+        private string $image,
     )
     {
     }
@@ -56,5 +56,75 @@ class Room
         }
 
         return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getFloor(): int
+    {
+        return $this->floor;
+    }
+
+    public function setFloor(int $floor): void
+    {
+        $this->floor = $floor;
+    }
+
+    public function getCapacity(): int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(int $capacity): void
+    {
+        $this->capacity = $capacity;
+    }
+
+    public function getSide(): string
+    {
+        return $this->side;
+    }
+
+    public function setSide(string $side): void
+    {
+        $this->side = $side;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
     }
 }

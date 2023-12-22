@@ -6,7 +6,7 @@ use Primitives\Models\Room;
 ?>
 <div class="container mx-auto form-container">
     <div class="cover-image-container">
-        <img class="cover-image" src="/uploaded_images/room/<?= $room->image ?>" alt="<?= $room->name ?>"/>
+        <img class="cover-image" src="/uploaded_images/room/<?= $room->getImage() ?>" alt="<?= $room->getName() ?>"/>
         <div class="white-shadow"></div>
         <a class="back-button" href="/admin/room-list">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,21 +19,21 @@ use Primitives\Models\Room;
             </svg>
         </a>
         <div class="room-detail">
-            <h1><?= $room->code ?>: <?= $room->name ?></h1>
+            <h1><?= $room->getCode() ?>: <?= $room->getName() ?></h1>
             <div class="d-flex text-capitalize" style="gap: 1rem">
-                <p><strong>Capacity:</strong> <?= $room->capacity ?></p>
-                <p><strong>Floor:</strong> <?= $room->floor ?></p>
-                <p><strong>Side:</strong> <?= $room->side ?></p>
+                <p><strong>Capacity:</strong> <?= $room->getCapacity() ?></p>
+                <p><strong>Floor:</strong> <?= $room->getFloor() ?></p>
+                <p><strong>Side:</strong> <?= $room->getSide() ?></p>
             </div>
         </div>
     </div>
     <form class="bordered-container" method="post" action="/rooms?_method=PUT" enctype="multipart/form-data">
         <h1 class="form-title">Edit Room Details</h1>
-        <input type="text" name="id" value="<?= $room->id ?>" hidden/>
+        <input type="text" name="id" value="<?= $room->getId() ?>" hidden/>
         <div class="input-container">
             <div class="mb-4 w-100">
                 <label for="name-input" class="form-label">Name</label>
-                <input type="text" class="input-text" id="name-input" name="name" value="<?= $room->name ?>" required>
+                <input type="text" class="input-text" id="name-input" name="name" value="<?= $room->getName() ?>" required>
             </div>
             <div class="mb-4 w-100">
                 <label for="code-input" class="form-label">Code</label>
@@ -42,7 +42,7 @@ use Primitives\Models\Room;
                         class="input-text"
                         id="code-input"
                         name="code"
-                        value="<?= $room->code ?>"
+                        value="<?= $room->getCode() ?>"
                         required
                         maxlength="4"
                 >
@@ -52,7 +52,7 @@ use Primitives\Models\Room;
                     <label for="floor-input" class="form-label">Floor</label>
                     <input
                             type="number" class="input-text" id="floor-input" name="floor"
-                            value="<?= $room->floor ?>"
+                            value="<?= $room->getFloor() ?>"
                             required
                     >
                 </div>
@@ -60,7 +60,7 @@ use Primitives\Models\Room;
                     <label for="side-input" class="form-label">Side</label>
                     <input
                             type="text" class="input-text" id="side-input" name="side"
-                            value="<?= $room->side ?>"
+                            value="<?= $room->getSide() ?>"
                             required
                     >
                 </div>
@@ -68,14 +68,14 @@ use Primitives\Models\Room;
                     <label for="capacity-input" class="form-label">Capacity</label>
                     <input
                             type="number" class="input-text" id="capacity-input" name="capacity"
-                            value="<?= $room->capacity ?>"
+                            value="<?= $room->getCapacity() ?>"
                             required
                     >
                 </div>
             </div>
             <div class="mb-4 w-100">
                 <label for="image-input" class="form-label">Image</label>
-                <input type="file" class="input-text" id="image-input" name="image" value="<?= $room->image ?>">
+                <input type="file" class="input-text" id="image-input" name="image" value="<?= $room->getImage() ?>">
             </div>
             <div class="row mx-auto" style="gap: 1rem; max-width: 30rem">
                 <button class="col button secondary-button">Cancel</button>

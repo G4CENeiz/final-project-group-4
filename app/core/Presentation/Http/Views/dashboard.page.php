@@ -15,7 +15,7 @@ use Primitives\Models\User;
 <div class="mx-auto container statistics-container">
     <h1 class="statistics-title">Statistics</h1>
     <div class="statistic-item-list">
-        <?php if ($user->role == RoleName::Administrator): ?>
+        <?php if ($user->getRole() == RoleName::Administrator): ?>
             <div class="statistic-item">
                 <div class="statistic-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

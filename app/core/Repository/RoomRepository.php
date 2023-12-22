@@ -81,12 +81,12 @@ class RoomRepository implements IRoomRepository
             INSERT INTO dbo.Room (Code, Name, Floor, Capacity, Side, Image)
             VALUES (:code, :name, :floor, :capacity, :side, :image)
         ", [
-            'code' => $room->code,
-            'name' => $room->name,
-            'floor' => $room->floor,
-            'capacity' => $room->capacity,
-            'side' => $room->side,
-            'image' => $room->image
+            'code' => $room->getCode(),
+            'name' => $room->getName(),
+            'floor' => $room->getFloor(),
+            'capacity' => $room->getCapacity(),
+            'side' => $room->getSide(),
+            'image' => $room->getImage()
         ]);
         return $this->getById($this->mssqlClient->getLastInsertedId());
     }
@@ -104,13 +104,13 @@ class RoomRepository implements IRoomRepository
                 Image = :image
             WHERE Id = :id
         ", [
-            'id' => $room->id,
-            'code' => $room->code,
-            'name' => $room->name,
-            'floor' => $room->floor,
-            'capacity' => $room->capacity,
-            'side' => $room->side,
-            'image' => $room->image
+            'id' => $room->getId(),
+            'code' => $room->getCode(),
+            'name' => $room->getName(),
+            'floor' => $room->getFloor(),
+            'capacity' => $room->getCapacity(),
+            'side' => $room->getSide(),
+            'image' => $room->getImage()
         ]);
 
         return $room;
@@ -118,7 +118,7 @@ class RoomRepository implements IRoomRepository
 
     public function delete(int $id): void
     {
-        $this->mssqlClient->executeQuery("
+        $this->mssqlClient->executeNonQuery("
             DELETE FROM dbo.Room
             WHERE ID = :id
         ", [

@@ -19,7 +19,7 @@
     </form>
     <div class="dropdown">
         <img
-                class="topbar-profile dropdown-toggle" src="/uploaded_images/user/<?= $user->avatar ?>"
+                class="topbar-profile dropdown-toggle" src="/uploaded_images/user/<?= $user->getAvatar() ?>"
                 alt="profile"
                 id="dropdownMenuButton1" data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -27,12 +27,12 @@
         <ul class="dropdown-menu">
             <li>
                 <span class="dropdown-item disabled">
-                    <strong><?= $user->fullname ?></strong>
+                    <strong><?= $user->getFullname() ?></strong>
                 </span>
             </li>
             <li>
                 <span class="dropdown-item disabled">
-                    <?= $user->email ?>
+                    <?= $user->getEmail() ?>
                 </span>
             </li>
             <li>

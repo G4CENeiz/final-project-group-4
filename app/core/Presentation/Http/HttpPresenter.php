@@ -7,6 +7,8 @@ use Presentation\Http\Attributes\Route;
 use Presentation\Http\Attributes\WithSession;
 use Presentation\Http\Controllers\Controller;
 use Presentation\Http\Helpers\Http;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * The main presenter for the application.
@@ -38,7 +40,7 @@ class HttpPresenter
         }
 
         foreach ($this->controllers as $controller) {
-            $reflection = new \ReflectionClass($controller);
+            $reflection = new ReflectionClass($controller);
             $methods = $reflection->getMethods();
             foreach ($methods as $method) {
                 $attributes = $method->getAttributes(Route::class);
@@ -74,7 +76,7 @@ class HttpPresenter
                             }
 
                             $method->invoke($controller);
-                        } catch (\ReflectionException $e) {
+                        } catch (ReflectionException $e) {
                             Http::internalServerError($e->getMessage());
                         }
                         return;

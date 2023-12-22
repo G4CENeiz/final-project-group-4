@@ -12,7 +12,7 @@ use Primitives\Models\User;
 <div class="container mx-auto form-container">
     <div class="cover-image-container">
         <img
-                class="cover-image" src="/uploaded_images/room/<?= $room->image ?>" alt="<?= $room->name ?>"
+                class="cover-image" src="/uploaded_images/room/<?= $room->getImage() ?>" alt="<?= $room->getName() ?>"
                 style="top: 0"
         />
         <div class="white-shadow"></div>
@@ -28,11 +28,11 @@ use Primitives\Models\User;
             </svg>
         </a>
         <div class="room-detail">
-            <h1><?= $room->code ?>: <?= $room->name ?></h1>
+            <h1><?= $room->getCode() ?>: <?= $room->getName() ?></h1>
             <div class="d-flex text-capitalize" style="gap: 1rem">
-                <p><strong>Capacity:</strong> <?= $room->capacity ?></p>
-                <p><strong>Floor:</strong> <?= $room->floor ?></p>
-                <p><strong>Side:</strong> <?= $room->side ?></p>
+                <p><strong>Capacity:</strong> <?= $room->getCapacity() ?></p>
+                <p><strong>Floor:</strong> <?= $room->getFloor() ?></p>
+                <p><strong>Side:</strong> <?= $room->getSide() ?></p>
             </div>
         </div>
     </div>
@@ -54,8 +54,8 @@ use Primitives\Models\User;
                 </div>
             </div>
             <div class="">
-                <input type="text" value="<?= $room->id ?>" name="room_id" hidden>
-                <input type="text" value="<?= $user->id ?>" name="user_id" hidden>
+                <input type="text" value="<?= $room->getId() ?>" name="room_id" hidden>
+                <input type="text" value="<?= $user->getId() ?>" name="user_id" hidden>
                 <div class="mb-4 w-100">
                     <label for="title-input" class="form-label">Event Title</label>
                     <input type="text" class="input-text" id="title-input" name="title" required>

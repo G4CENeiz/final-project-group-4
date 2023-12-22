@@ -24,16 +24,18 @@ use Primitives\Models\User;
             </a>
         </li>
 
-        <li class="sidenav-item <?= View::activeClass('room-list') ?>">
-            <a href="<?= View::route('room-list') ?>" class="sidenav-link">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                            d="M6 26H10V22H6V26ZM6 34H10V30H6V34ZM6 18H10V14H6V18ZM14 26H42V22H14V26ZM14 34H42V30H14V34ZM14 14V18H42V14H14Z"
-                            fill="currentColor"
-                    />
-                </svg>
-            </a>
-        </li>
+        <?php if ($user->getRole() != RoleName::Approver): ?>
+            <li class="sidenav-item <?= View::activeClass('room-list') ?>">
+                <a href="<?= View::route('room-list') ?>" class="sidenav-link">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                                d="M6 26H10V22H6V26ZM6 34H10V30H6V34ZM6 18H10V14H6V18ZM14 26H42V22H14V26ZM14 34H42V30H14V34ZM14 14V18H42V14H14Z"
+                                fill="currentColor"
+                        />
+                    </svg>
+                </a>
+            </li>
+        <?php endif; ?>
 
         <li class="sidenav-item <?= View::activeClass('schedule') ?>">
             <a href="<?= View::route('schedule') ?>" class="sidenav-link">
@@ -46,7 +48,7 @@ use Primitives\Models\User;
             </a>
         </li>
 
-        <?php if ($user->role == RoleName::Administrator): ?>
+        <?php if ($user->getRole() == RoleName::Administrator): ?>
             <li class="sidenav-item <?= View::activeClass('user-list') ?>">
                 <a href="<?= View::route('user-list') ?>" class="sidenav-link">
                     <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">

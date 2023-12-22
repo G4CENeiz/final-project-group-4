@@ -5,15 +5,15 @@ namespace Primitives\Models;
 class User
 {
     public function __construct(
-        public ?int          $id,
-        public ?string       $registrationNumber,
-        public string        $fullname,
-        public string        $username,
-        public ?string       $password,
-        public string        $email,
-        public string        $phone,
-        public string        $avatar,
-        public RoleName      $role,
+        private ?int          $id,
+        private ?string       $registrationNumber,
+        private string        $fullname,
+        private string        $username,
+        private ?string       $password,
+        private string        $email,
+        private string        $phone,
+        private string        $avatar,
+        private RoleName      $role,
     )
     {
     }
@@ -72,5 +72,95 @@ class User
         if (isset($user['role']) && $user['role'] !== '') {
             $this->role = RoleName::from($user['role']);
         }
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getRegistrationNumber(): ?string
+    {
+        return $this->registrationNumber;
+    }
+
+    public function setRegistrationNumber(?string $registrationNumber): void
+    {
+        $this->registrationNumber = $registrationNumber;
+    }
+
+    public function getFullname(): string
+    {
+        return $this->fullname;
+    }
+
+    public function setFullname(string $fullname): void
+    {
+        $this->fullname = $fullname;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
+    public function getRole(): RoleName
+    {
+        return $this->role;
+    }
+
+    public function setRole(RoleName $role): void
+    {
+        $this->role = $role;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password): void
+    {
+        $this->password = $password;
     }
 }

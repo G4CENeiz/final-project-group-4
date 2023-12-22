@@ -31,22 +31,22 @@ use Primitives\Models\User;
         <tbody>
         <?php foreach ($users as $u) { ?>
             <tr>
-                <td><?= $u->email ?></td>
-                <td><?= $u->registrationNumber ?></td>
-                <td><?= $u->fullname ?></td>
-                <td><?= $u->role->name ?></td>
+                <td><?= $u->getEmail() ?></td>
+                <td><?= $u->getRegistrationNumber() ?></td>
+                <td><?= $u->getFullname() ?></td>
+                <td><?= $u->getRole()->name ?></td>
                 <td class="text-center d-flex justify-content-center" style="gap: 0.5rem">
-                    <?php if ($user->id !== $u->id) { ?>
+                    <?php if ($user->getId() !== $u->getId()) { ?>
                         <button
                                 type="button" class="button danger-button"
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteUserModal"
-                                data-bs-room-id="<?= $u->id ?>"
+                                data-bs-room-id="<?= $u->getId() ?>"
                         >
                             Delete
                         </button>
                     <?php } ?>
-                    <a type="button" class="button primary-button" href="/admin/user?id=<?= $u->id ?>">Edit</a>
+                    <a type="button" class="button primary-button" href="/admin/user?id=<?= $u->getId() ?>">Edit</a>
                 </td>
             </tr>
         <?php } ?>

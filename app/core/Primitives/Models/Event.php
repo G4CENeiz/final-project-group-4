@@ -18,14 +18,14 @@ class Event
      * @param Approval[] $approvers
      */
     public function __construct(
-        public int      $id,
-        public string   $title,
-        public string   $description,
-        public DateTime $startsAt,
-        public DateTime $endsAt,
-        public Room     $room,
-        public User     $pic,
-        public array    $approvers,
+        private int      $id,
+        private string   $title,
+        private string   $description,
+        private DateTime $startsAt,
+        private DateTime $endsAt,
+        private Room     $room,
+        private User     $pic,
+        private array    $approvers,
     )
     {
     }
@@ -33,7 +33,7 @@ class Event
     public function isApproved(): bool
     {
         foreach ($this->approvers as $approver) {
-            if ($approver->status->value != ApprovalStatus::Approved) {
+            if ($approver->getStatus()->value != ApprovalStatus::Approved) {
                 return false;
             }
         }
@@ -95,8 +95,8 @@ class Event
     public function getStatus(int $id): ApprovalStatus
     {
         foreach ($this->approvers as $approver) {
-            if ($approver->user->id == $id) {
-                return $approver->status;
+            if ($approver->getUser()->getId() == $id) {
+                return $approver->getStatus();
             }
         }
         return ApprovalStatus::Unknown;
@@ -124,11 +124,91 @@ class Event
         }
 
         if (isset($event['roomId']) && $event['roomId'] !== '') {
-            $this->room->id = $event['roomId'];
+            $this->room->setId($event['roomId']);
         }
 
         if (isset($event['picId']) && $event['picId'] !== '') {
-            $this->pic->id = $event['picId'];
+            $this->pic->setId($event['picId']);
         }
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getStartsAt(): DateTime
+    {
+        return $this->startsAt;
+    }
+
+    public function setStartsAt(DateTime $startsAt): void
+    {
+        $this->startsAt = $startsAt;
+    }
+
+    public function getEndsAt(): DateTime
+    {
+        return $this->endsAt;
+    }
+
+    public function setEndsAt(DateTime $endsAt): void
+    {
+        $this->endsAt = $endsAt;
+    }
+
+    public function getRoom(): Room
+    {
+        return $this->room;
+    }
+
+    public function setRoom(Room $room): void
+    {
+        $this->room = $room;
+    }
+
+    public function getPic(): User
+    {
+        return $this->pic;
+    }
+
+    public function setPic(User $pic): void
+    {
+        $this->pic = $pic;
+    }
+
+    public function getApprovers(): array
+    {
+        return $this->approvers;
+    }
+
+    public function setApprovers(array $approvers): void
+    {
+        $this->approvers = $approvers;
     }
 }

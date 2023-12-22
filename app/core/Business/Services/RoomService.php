@@ -57,7 +57,7 @@ class RoomService
     public function updateRoom(array $raw_room): Room
     {
         $room = $this->roomRepository->getById($raw_room['id']);
-        $image = Storage::updateUploadedImage('image', $room->image, 'room');
+        $image = Storage::updateUploadedImage('image', $room->getImage(), 'room');
         $room->updateWith([
             'code' => $raw_room['code'],
             'name' => $raw_room['name'],
@@ -72,7 +72,7 @@ class RoomService
     public function deleteRoom(string $id): void
     {
         $room = $this->roomRepository->getById($id);
-        Storage::removeStoredImage("room/$room->image");
+        Storage::removeStoredImage("room/{$room->getImage()}");
         $this->roomRepository->delete($id);
     }
 

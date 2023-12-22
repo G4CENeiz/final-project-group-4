@@ -105,14 +105,14 @@ class UserRepository implements IUserRepository
             INSERT INTO dbo.[User] (RegistrationNumber, FullName, Username, Password, Email, Phone, Avatar, Role)
             VALUES (:registration_number, :fullname, :username, :password, :email, :phone, :avatar, :role);
         ", [
-            'registration_number' => $user->registrationNumber,
-            'fullname' => $user->fullname,
-            'username' => $user->username,
-            'password' => $user->password,
-            'email' => $user->email,
-            'phone' => $user->phone,
-            'avatar' => $user->avatar,
-            'role' => $user->role->value
+            'registration_number' => $user->getRegistrationNumber(),
+            'fullname' => $user->getFullname(),
+            'username' => $user->getUsername(),
+            'password' => $user->getPassword(),
+            'email' => $user->getEmail(),
+            'phone' => $user->getPhone(),
+            'avatar' => $user->getAvatar(),
+            'role' => $user->getRole()->value
         ]);
 
         return $this->getById($this->databaseClient->getLastInsertedId());
@@ -134,15 +134,15 @@ class UserRepository implements IUserRepository
                 Role = ?
             WHERE Id = ?
         ", [
-            $user->registrationNumber,
-            $user->fullname,
-            $user->username,
-            $user->password,
-            $user->email,
-            $user->phone,
-            $user->avatar,
-            $user->role->value,
-            $user->id
+            $user->getRegistrationNumber(),
+            $user->getFullname(),
+            $user->getUsername(),
+            $user->getPassword(),
+            $user->getEmail(),
+            $user->getPhone(),
+            $user->getAvatar(),
+            $user->getRole()->value,
+            $user->getId()
         ]);
 
         return $user;
